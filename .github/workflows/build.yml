@@ -1,5 +1,4 @@
-
-name: Android CI
+ name: Android CI
 
 on:
   push:
@@ -23,6 +22,11 @@ jobs:
       - name: Grant execute permission
         run: chmod +x gradlew
 
+      - name: Download gradle-wrapper.jar
+        run: |
+          mkdir -p gradle/wrapper
+          curl -fSL -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/v8.7.0/gradle/wrapper/gradle-wrapper.jar
+
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
@@ -31,3 +35,4 @@ jobs:
         with:
           name: Android-Debug-APK
           path: app/build/outputs/apk/debug/*.apk
+
